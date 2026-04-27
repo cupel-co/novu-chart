@@ -345,14 +345,6 @@
       "properties": {
         "enabled": {
           "type": "boolean"
-        },
-        "serviceBindings": {
-          "type": "object",
-          "properties": {
-            "enabled": {
-              "type": "boolean"
-            }
-          }
         }
       },
       "required": ["enabled"]
@@ -384,6 +376,10 @@
         },
         "port": {
           "type": "integer"
+        },
+        "password": {
+          "type": "string",
+          "description": "Redis password stored directly in the chart Secret. Use existingSecret for passwords already in a Kubernetes Secret."
         },
         "existingSecret": {
           "type": "string"

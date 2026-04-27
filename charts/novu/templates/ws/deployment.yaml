@@ -47,6 +47,12 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.externalRedis.existingSecret | quote }}
                   key: {{ .Values.externalRedis.existingSecretPasswordKey | quote }}
+            {{- else if .Values.externalRedis.password }}
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "novu.fullname" . }}-secret
+                  key: REDIS_PASSWORD
             {{- end }}
             {{- else }}
             - name: REDIS_PASSWORD
@@ -54,6 +60,21 @@ spec:
                 secretKeyRef:
                   name: "{{ include "redis.fullname" . }}"
                   key: redis-password
+            {{- end }}
+            {{- if not .Values.externalMongo.enabled }}
+            - name: MONGO_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "mongodb.fullname" . }}
+                  key: mongodb-root-password
+            - name: MONGO_URL
+              value: "mongodb://root:$(MONGO_ROOT_PASSWORD)@{{ include "mongodb.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ dig "service" "ports" "mongodb" 27017 .Values.mongodb }}/novu"
+            {{- else }}
+            - name: MONGO_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "novu.fullname" . }}-secret
+                  key: MONGO_URL
             {{- end }}
           resources:
             {{- toYaml .Values.ws.resources | nindent 12 }}

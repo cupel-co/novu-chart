@@ -41,11 +41,13 @@ spec:
             - name: WS_CONTEXT_PATH
               value: "{{ .Values.ws.contextPath }}"
             {{- if .Values.externalRedis.enabled }}
+            {{- if .Values.externalRedis.existingSecret }}
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.externalRedis.existingSecret | quote }}
                   key: {{ .Values.externalRedis.existingSecretPasswordKey | quote }}
+            {{- end }}
             {{- else }}
             - name: REDIS_PASSWORD
               valueFrom:

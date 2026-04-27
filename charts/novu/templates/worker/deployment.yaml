@@ -39,11 +39,13 @@ spec:
             - name: MULTICAST_QUEUE_CHUNK_SIZE
               value: "{{ .Values.worker.multicastQueueChunkSize }}"
             {{- if .Values.externalRedis.enabled }}
+            {{- if .Values.externalRedis.existingSecret }}
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.externalRedis.existingSecret | quote }}
                   key: {{ .Values.externalRedis.existingSecretPasswordKey | quote }}
+            {{- end }}
             {{- else }}
             - name: REDIS_PASSWORD
               valueFrom:

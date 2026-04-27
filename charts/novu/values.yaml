@@ -10,6 +10,34 @@ ingress:
   tls:
     secretName: novu-tls
 
+gateway:
+  enabled: false
+  annotations: { }
+  gatewayClassName: ""
+  listeners:
+    - name: http
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: Same
+  tls:
+    enabled: false
+    certificateRefs:
+      - name: novu-tls
+        kind: Secret
+        group: ""
+
+httpRoute:
+  enabled: false
+  annotations: { }
+  # host is used to build per-component subdomains: api.<host>, web.<host>, ws.<host>
+  host: chart-example.local
+  parentRef:
+    name: ""
+    namespace: ""
+    sectionName: ""
+
 
 service:
   type: ClusterIP

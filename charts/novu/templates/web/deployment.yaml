@@ -26,6 +26,9 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "novu.fullname" . }}-config
+          {{- with .Values.web.extraEnvFrom }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           env:
             - name: REACT_APP_WIDGET_EMBED_PATH
               value: "{{ .Values.web.widgets.embedPath }}"

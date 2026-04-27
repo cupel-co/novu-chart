@@ -32,21 +32,34 @@ spec:
                 name: {{ include "novu.fullname" . }}-config
             - secretRef:
                 name: {{ include "novu.fullname" . }}-secret
+          {{- with .Values.api.extraEnvFrom }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           env:
             - name: DISABLE_USER_REGISTRATION
               value: "{{ .Values.global.env.disableUserRegistration }}"
             - name: FRONT_BASE_URL
               value: "{{ .Values.global.env.frontBaseUrl }}"
+            {{- if .Values.externalRedis.enabled }}
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.externalRedis.existingSecret | quote }}
+                  key: {{ .Values.externalRedis.existingSecretPasswordKey | quote }}
+            {{- else }}
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: "{{ include "redis.fullname" . }}"
                   key: redis-password
+            {{- end }}
+            {{- if not .Values.externalMongo.enabled }}
             - name: MONGO_URL
               valueFrom:
                 secretKeyRef:
                   name: {{ include "mongodb.fullname" . }}-svcbind-root
                   key: uri
+            {{- end }}
           resources:
             {{- toYaml .Values.api.resources | nindent 12 }}
           livenessProbe:

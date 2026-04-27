@@ -30,16 +30,27 @@ spec:
                 name: {{ include "novu.fullname" . }}-config
             - secretRef:
                 name: {{ include "novu.fullname" . }}-secret
+          {{- with .Values.worker.extraEnvFrom }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           env:
             - name: BROADCAST_QUEUE_CHUNK_SIZE
               value: "{{ .Values.worker.broadcastQueueChunkSize }}"
             - name: MULTICAST_QUEUE_CHUNK_SIZE
               value: "{{ .Values.worker.multicastQueueChunkSize }}"
+            {{- if .Values.externalRedis.enabled }}
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.externalRedis.existingSecret | quote }}
+                  key: {{ .Values.externalRedis.existingSecretPasswordKey | quote }}
+            {{- else }}
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: "{{ include "redis.fullname" . }}"
                   key: redis-password
+            {{- end }}
           resources:
             {{- toYaml .Values.worker.resources | nindent 12 }}
       restartPolicy: Always

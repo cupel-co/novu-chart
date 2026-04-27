@@ -7,12 +7,23 @@ metadata:
     component: config
 data:
   NODE_ENV: {{ .Values.global.env.nodeEnv | quote }}
-  MONGO_URL: "mongodb://{{ include "mongodb.fullname" . }}-mongodb.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.mongodb.service.ports.mongodb }}/novu"
+  {{- if .Values.externalMongo.enabled }}
+  MONGO_URL: {{ .Values.externalMongo.url | quote }}
+  {{- else }}
+  MONGO_URL: "mongodb://{{ include "mongodb.fullname" . }}-mongodb.{{ .Release.Namespace }}.svc.cluster.local:{{ dig "service" "ports" "mongodb" 27017 .Values.mongodb }}/novu"
+  {{- end }}
   MONGO_MAX_POOL_SIZE: {{ .Values.global.env.mongodb.maxPoolSize | quote }}
+  {{- if .Values.externalRedis.enabled }}
+  REDIS_HOST: {{ .Values.externalRedis.host | quote }}
+  REDIS_PORT: {{ .Values.externalRedis.port | quote }}
+  REDIS_CACHE_SERVICE_HOST: {{ .Values.externalRedis.host | quote }}
+  REDIS_CACHE_SERVICE_PORT: {{ .Values.externalRedis.port | quote }}
+  {{- else }}
   REDIS_HOST: "{{ include "redis.fullname" . }}-master.{{ .Release.Namespace }}.svc.cluster.local"
-  REDIS_PORT: {{ .Values.redis.master.service.ports.redis | quote }}
+  REDIS_PORT: {{ dig "master" "service" "ports" "redis" 6379 .Values.redis | quote }}
   REDIS_CACHE_SERVICE_HOST: "{{ include "redis.fullname" . }}-master"
-  REDIS_CACHE_SERVICE_PORT: {{ .Values.redis.master.service.ports.redis | quote }}
+  REDIS_CACHE_SERVICE_PORT: {{ dig "master" "service" "ports" "redis" 6379 .Values.redis | quote }}
+  {{- end }}
   S3_LOCAL_STACK: {{ .Values.global.env.s3.localStack | quote }}
   S3_BUCKET_NAME: {{ .Values.global.env.s3.bucketName | quote }}
   S3_REGION: {{ .Values.global.env.s3.region | quote }}

@@ -85,6 +85,13 @@
               "type": "string"
             }
           }
+        },
+        "extraEnvFrom": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object"
+          }
         }
       },
       "required": ["replicaCount", "image", "port"]
@@ -120,6 +127,13 @@
         },
         "contextPath": {
           "type": "string"
+        },
+        "extraEnvFrom": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object"
+          }
         }
       },
       "required": ["replicaCount", "image"]
@@ -155,6 +169,13 @@
         },
         "multicastQueueChunkSize": {
           "type": "integer"
+        },
+        "extraEnvFrom": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object"
+          }
         }
       },
       "required": ["replicaCount", "image"]
@@ -190,6 +211,13 @@
         },
         "resources": {
           "type": "object"
+        },
+        "extraEnvFrom": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object"
+          }
         }
       },
       "required": ["replicaCount", "image"]
@@ -325,6 +353,43 @@
               "type": "boolean"
             }
           }
+        }
+      },
+      "required": ["enabled"]
+    },
+    "externalMongo": {
+      "type": "object",
+      "description": "External MongoDB configuration",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": ["enabled"]
+    },
+    "externalRedis": {
+      "type": "object",
+      "description": "External Redis configuration",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "host": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer"
+        },
+        "existingSecret": {
+          "type": "string"
+        },
+        "existingSecretPasswordKey": {
+          "type": "string"
         }
       },
       "required": ["enabled"]

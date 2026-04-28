@@ -10,6 +10,23 @@ ingress:
   tls:
     secretName: novu-tls
 
+gateway:
+  enabled: false
+  annotations: { }
+  gatewayClassName: ""
+  listeners:
+    - name: http
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: Same
+  tls:
+    enabled: false
+    certificateRefs:
+      - name: novu-tls
+        kind: Secret
+        group: ""
 
 service:
   type: ClusterIP
@@ -25,6 +42,15 @@ web:
   widgets:
     embedPath: http://localhost:4701/embed.umd.min.js
     url: http://localhost:4500
+  extraEnvFrom: []
+  httpRoute:
+    enabled: false
+    annotations: { }
+    hostname: ""
+    parentRef:
+      name: ""
+      namespace: ""
+      sectionName: ""
 
 api:
   replicaCount: 1
@@ -35,6 +61,15 @@ api:
   port: 3000
   resources: { }
   contextPath: ""
+  extraEnvFrom: []
+  httpRoute:
+    enabled: false
+    annotations: { }
+    hostname: ""
+    parentRef:
+      name: ""
+      namespace: ""
+      sectionName: ""
 
 worker:
   replicaCount: 1
@@ -45,6 +80,7 @@ worker:
   resources: { }
   broadcastQueueChunkSize: 100
   multicastQueueChunkSize: 100
+  extraEnvFrom: []
 
 ws:
   replicaCount: 1
@@ -55,6 +91,15 @@ ws:
   port: 3002
   contextPath: ""
   resources: { }
+  extraEnvFrom: []
+  httpRoute:
+    enabled: false
+    annotations: { }
+    hostname: ""
+    parentRef:
+      name: ""
+      namespace: ""
+      sectionName: ""
 
 global:
   imagePullSecrets: [ ]
@@ -63,6 +108,12 @@ global:
     mongodb:
       maxPoolSize: 200
       minPoolSize: 75
+      url: ""        # connection string used when mongodb.enabled is false
+    redis:
+      host: ""
+      port: 6379
+      password: ""
+      dbIndex: 2
     secret:
       novuSecretKey: your-secret
       jwtSecret: your-secret
@@ -92,3 +143,5 @@ mongodb:
   enabled: true
   serviceBindings:
     enabled: true
+
+

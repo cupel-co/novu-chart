@@ -32,16 +32,15 @@ spec:
                 name: {{ include "novu.fullname" . }}-config
             - secretRef:
                 name: {{ include "novu.fullname" . }}-secret
+          {{- with .Values.ws.extraEnvFrom }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           env:
             - name: PORT
               value: "{{ .Values.ws.port }}"
             - name: WS_CONTEXT_PATH
               value: "{{ .Values.ws.contextPath }}"
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: "{{ include "redis.fullname" . }}"
-                  key: redis-password
+
           resources:
             {{- toYaml .Values.ws.resources | nindent 12 }}
       restartPolicy: Always

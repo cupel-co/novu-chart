@@ -7,12 +7,18 @@ metadata:
     component: config
 data:
   NODE_ENV: {{ .Values.global.env.nodeEnv | quote }}
-  MONGO_URL: "mongodb://{{ include "mongodb.fullname" . }}-mongodb.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.mongodb.service.ports.mongodb }}/novu"
   MONGO_MAX_POOL_SIZE: {{ .Values.global.env.mongodb.maxPoolSize | quote }}
+  {{- if .Values.global.env.redis.host }}
+  REDIS_HOST: {{ .Values.global.env.redis.host | quote }}
+  REDIS_PORT: {{ .Values.global.env.redis.port | quote }}
+  REDIS_CACHE_SERVICE_HOST: {{ .Values.global.env.redis.host | quote }}
+  REDIS_CACHE_SERVICE_PORT: {{ .Values.global.env.redis.port | quote }}
+  {{- else }}
   REDIS_HOST: "{{ include "redis.fullname" . }}-master.{{ .Release.Namespace }}.svc.cluster.local"
-  REDIS_PORT: {{ .Values.redis.master.service.ports.redis | quote }}
+  REDIS_PORT: {{ dig "master" "service" "ports" "redis" 6379 .Values.redis | quote }}
   REDIS_CACHE_SERVICE_HOST: "{{ include "redis.fullname" . }}-master"
-  REDIS_CACHE_SERVICE_PORT: {{ .Values.redis.master.service.ports.redis | quote }}
+  REDIS_CACHE_SERVICE_PORT: {{ dig "master" "service" "ports" "redis" 6379 .Values.redis | quote }}
+  {{- end }}
   S3_LOCAL_STACK: {{ .Values.global.env.s3.localStack | quote }}
   S3_BUCKET_NAME: {{ .Values.global.env.s3.bucketName | quote }}
   S3_REGION: {{ .Values.global.env.s3.region | quote }}
@@ -23,7 +29,7 @@ data:
   API_CONTEXT_PATH: {{ .Values.api.contextPath | quote }}
   REACT_APP_API_URL: {{ .Values.global.env.apiRootUrl | quote }}
   REACT_APP_ENVIRONMENT: {{ .Values.global.env.nodeEnv | quote }}
-  REDIS_DB_INDEX: "2"
+  REDIS_DB_INDEX: {{ .Values.global.env.redis.dbIndex | default 2 | quote }}
 ---
 apiVersion: v1
 kind: ConfigMap

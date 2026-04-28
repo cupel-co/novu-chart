@@ -85,6 +85,49 @@
               "type": "string"
             }
           }
+        },
+        "extraEnvFrom": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object"
+          }
+        },
+        "httpRoute": {
+          "type": "object",
+          "description": "Per-component HTTPRoute configuration",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "annotations": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "hostname": {
+              "type": "string",
+              "description": "Full hostname for the HTTPRoute (e.g. web.example.com)"
+            },
+            "parentRef": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "namespace": {
+                  "type": "string"
+                },
+                "sectionName": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": ["enabled"]
         }
       },
       "required": ["replicaCount", "image", "port"]
@@ -120,6 +163,49 @@
         },
         "contextPath": {
           "type": "string"
+        },
+        "extraEnvFrom": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object"
+          }
+        },
+        "httpRoute": {
+          "type": "object",
+          "description": "Per-component HTTPRoute configuration",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "annotations": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "hostname": {
+              "type": "string",
+              "description": "Full hostname for the HTTPRoute (e.g. api.example.com)"
+            },
+            "parentRef": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "namespace": {
+                  "type": "string"
+                },
+                "sectionName": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": ["enabled"]
         }
       },
       "required": ["replicaCount", "image"]
@@ -155,6 +241,13 @@
         },
         "multicastQueueChunkSize": {
           "type": "integer"
+        },
+        "extraEnvFrom": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object"
+          }
         }
       },
       "required": ["replicaCount", "image"]
@@ -190,6 +283,49 @@
         },
         "resources": {
           "type": "object"
+        },
+        "extraEnvFrom": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object"
+          }
+        },
+        "httpRoute": {
+          "type": "object",
+          "description": "Per-component HTTPRoute configuration",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "annotations": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "hostname": {
+              "type": "string",
+              "description": "Full hostname for the HTTPRoute (e.g. ws.example.com)"
+            },
+            "parentRef": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "namespace": {
+                  "type": "string"
+                },
+                "sectionName": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": ["enabled"]
         }
       },
       "required": ["replicaCount", "image"]
@@ -218,6 +354,34 @@
                 },
                 "minPoolSize": {
                   "type": "integer"
+                },
+                "url": {
+                  "type": "string",
+                  "description": "MongoDB connection string used when mongodb.enabled is false"
+                }
+              }
+            },
+            "redis": {
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "host": {
+                  "type": "string"
+                },
+                "port": {
+                  "type": "integer"
+                },
+                "password": {
+                  "type": "string",
+                  "description": "Redis password stored directly in the chart Secret. Use existingSecret for passwords already in a Kubernetes Secret."
+                },
+                "existingSecret": {
+                  "type": "string"
+                },
+                "existingSecretPasswordKey": {
+                  "type": "string"
                 }
               }
             },
@@ -317,14 +481,48 @@
       "properties": {
         "enabled": {
           "type": "boolean"
+        }
+      },
+      "required": ["enabled"]
+    },
+    "gateway": {
+      "type": "object",
+      "description": "Kubernetes Gateway API Gateway resource configuration",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
         },
-        "serviceBindings": {
+        "annotations": {
           "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "gatewayClassName": {
+          "type": "string"
+        },
+        "listeners": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "tls": {
+          "type": "object",
+          "additionalProperties": false,
           "properties": {
             "enabled": {
               "type": "boolean"
+            },
+            "certificateRefs": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
             }
-          }
+          },
+          "required": ["enabled"]
         }
       },
       "required": ["enabled"]

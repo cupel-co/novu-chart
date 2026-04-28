@@ -114,6 +114,7 @@ global:
       host: ""
       port: 6379
       password: ""
+      dbIndex: 2
     secret:
       novuSecretKey: your-secret
       jwtSecret: your-secret

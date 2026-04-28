@@ -29,7 +29,7 @@ data:
   API_CONTEXT_PATH: {{ .Values.api.contextPath | quote }}
   REACT_APP_API_URL: {{ .Values.global.env.apiRootUrl | quote }}
   REACT_APP_ENVIRONMENT: {{ .Values.global.env.nodeEnv | quote }}
-  REDIS_DB_INDEX: "2"
+  REDIS_DB_INDEX: {{ .Values.global.env.redis.dbIndex | default 2 | quote }}
 ---
 apiVersion: v1
 kind: ConfigMap

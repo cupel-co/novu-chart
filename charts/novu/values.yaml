@@ -118,8 +118,6 @@ global:
       # WARNING: for production, prefer existingSecret or an encrypted values file to
       # avoid storing plaintext credentials in version control.
       password: ""
-      existingSecret: ""
-      existingSecretPasswordKey: redis-password
     secret:
       novuSecretKey: your-secret
       jwtSecret: your-secret

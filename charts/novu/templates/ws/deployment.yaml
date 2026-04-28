@@ -40,27 +40,6 @@ spec:
               value: "{{ .Values.ws.port }}"
             - name: WS_CONTEXT_PATH
               value: "{{ .Values.ws.contextPath }}"
-            {{- if .Values.global.env.redis.host }}
-            {{- if .Values.global.env.redis.existingSecret }}
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.global.env.redis.existingSecret | quote }}
-                  key: {{ .Values.global.env.redis.existingSecretPasswordKey | quote }}
-            {{- else if .Values.global.env.redis.password }}
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "novu.fullname" . }}-secret
-                  key: REDIS_PASSWORD
-            {{- end }}
-            {{- else }}
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: "{{ include "redis.fullname" . }}"
-                  key: redis-password
-            {{- end }}
 
           resources:
             {{- toYaml .Values.ws.resources | nindent 12 }}

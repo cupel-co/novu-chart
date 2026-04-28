@@ -361,6 +361,30 @@
                 }
               }
             },
+            "redis": {
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "host": {
+                  "type": "string"
+                },
+                "port": {
+                  "type": "integer"
+                },
+                "password": {
+                  "type": "string",
+                  "description": "Redis password stored directly in the chart Secret. Use existingSecret for passwords already in a Kubernetes Secret."
+                },
+                "existingSecret": {
+                  "type": "string"
+                },
+                "existingSecretPasswordKey": {
+                  "type": "string"
+                }
+              }
+            },
             "secret": {
               "type": "object",
               "properties": {
@@ -457,33 +481,6 @@
       "properties": {
         "enabled": {
           "type": "boolean"
-        }
-      },
-      "required": ["enabled"]
-    },
-    "externalRedis": {
-      "type": "object",
-      "description": "External Redis configuration",
-      "additionalProperties": false,
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        },
-        "host": {
-          "type": "string"
-        },
-        "port": {
-          "type": "integer"
-        },
-        "password": {
-          "type": "string",
-          "description": "Redis password stored directly in the chart Secret. Use existingSecret for passwords already in a Kubernetes Secret."
-        },
-        "existingSecret": {
-          "type": "string"
-        },
-        "existingSecretPasswordKey": {
-          "type": "string"
         }
       },
       "required": ["enabled"]

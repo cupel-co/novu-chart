@@ -109,6 +109,17 @@ global:
       maxPoolSize: 200
       minPoolSize: 75
       url: ""        # connection string used when mongodb.enabled is false
+    redis:
+      enabled: false
+      host: ""
+      port: 6379
+      # password sets the Redis password directly (stored in the chart's Secret).
+      # Use existingSecret instead when the password is already in a Kubernetes Secret.
+      # WARNING: for production, prefer existingSecret or an encrypted values file to
+      # avoid storing plaintext credentials in version control.
+      password: ""
+      existingSecret: ""
+      existingSecretPasswordKey: redis-password
     secret:
       novuSecretKey: your-secret
       jwtSecret: your-secret
@@ -137,14 +148,4 @@ redis:
 mongodb:
   enabled: true
 
-externalRedis:
-  enabled: false
-  host: ""
-  port: 6379
-  # password sets the Redis password directly (stored in the chart's Secret).
-  # Use existingSecret instead when the password is already in a Kubernetes Secret.
-  # WARNING: for production, prefer existingSecret or an encrypted values file to
-  # avoid storing plaintext credentials in version control.
-  password: ""
-  existingSecret: ""
-  existingSecretPasswordKey: redis-password
+

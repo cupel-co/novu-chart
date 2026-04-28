@@ -40,14 +40,14 @@ spec:
               value: "{{ .Values.global.env.disableUserRegistration }}"
             - name: FRONT_BASE_URL
               value: "{{ .Values.global.env.frontBaseUrl }}"
-            {{- if .Values.externalRedis.enabled }}
-            {{- if .Values.externalRedis.existingSecret }}
+            {{- if .Values.global.env.redis.enabled }}
+            {{- if .Values.global.env.redis.existingSecret }}
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.externalRedis.existingSecret | quote }}
-                  key: {{ .Values.externalRedis.existingSecretPasswordKey | quote }}
-            {{- else if .Values.externalRedis.password }}
+                  name: {{ .Values.global.env.redis.existingSecret | quote }}
+                  key: {{ .Values.global.env.redis.existingSecretPasswordKey | quote }}
+            {{- else if .Values.global.env.redis.password }}
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:

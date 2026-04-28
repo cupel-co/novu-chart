@@ -8,11 +8,11 @@ metadata:
 data:
   NODE_ENV: {{ .Values.global.env.nodeEnv | quote }}
   MONGO_MAX_POOL_SIZE: {{ .Values.global.env.mongodb.maxPoolSize | quote }}
-  {{- if .Values.externalRedis.enabled }}
-  REDIS_HOST: {{ .Values.externalRedis.host | quote }}
-  REDIS_PORT: {{ .Values.externalRedis.port | quote }}
-  REDIS_CACHE_SERVICE_HOST: {{ .Values.externalRedis.host | quote }}
-  REDIS_CACHE_SERVICE_PORT: {{ .Values.externalRedis.port | quote }}
+  {{- if .Values.global.env.redis.enabled }}
+  REDIS_HOST: {{ .Values.global.env.redis.host | quote }}
+  REDIS_PORT: {{ .Values.global.env.redis.port | quote }}
+  REDIS_CACHE_SERVICE_HOST: {{ .Values.global.env.redis.host | quote }}
+  REDIS_CACHE_SERVICE_PORT: {{ .Values.global.env.redis.port | quote }}
   {{- else }}
   REDIS_HOST: "{{ include "redis.fullname" . }}-master.{{ .Release.Namespace }}.svc.cluster.local"
   REDIS_PORT: {{ dig "master" "service" "ports" "redis" 6379 .Values.redis | quote }}

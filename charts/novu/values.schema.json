@@ -92,6 +92,42 @@
           "items": {
             "type": "object"
           }
+        },
+        "httpRoute": {
+          "type": "object",
+          "description": "Per-component HTTPRoute configuration",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "annotations": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "hostname": {
+              "type": "string",
+              "description": "Full hostname for the HTTPRoute (e.g. web.example.com)"
+            },
+            "parentRef": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "namespace": {
+                  "type": "string"
+                },
+                "sectionName": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": ["enabled"]
         }
       },
       "required": ["replicaCount", "image", "port"]
@@ -134,6 +170,42 @@
           "items": {
             "type": "object"
           }
+        },
+        "httpRoute": {
+          "type": "object",
+          "description": "Per-component HTTPRoute configuration",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "annotations": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "hostname": {
+              "type": "string",
+              "description": "Full hostname for the HTTPRoute (e.g. api.example.com)"
+            },
+            "parentRef": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "namespace": {
+                  "type": "string"
+                },
+                "sectionName": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": ["enabled"]
         }
       },
       "required": ["replicaCount", "image"]
@@ -218,6 +290,42 @@
           "items": {
             "type": "object"
           }
+        },
+        "httpRoute": {
+          "type": "object",
+          "description": "Per-component HTTPRoute configuration",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "annotations": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "hostname": {
+              "type": "string",
+              "description": "Full hostname for the HTTPRoute (e.g. ws.example.com)"
+            },
+            "parentRef": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "namespace": {
+                  "type": "string"
+                },
+                "sectionName": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": ["enabled"]
         }
       },
       "required": ["replicaCount", "image"]
@@ -428,41 +536,6 @@
             }
           },
           "required": ["enabled"]
-        }
-      },
-      "required": ["enabled"]
-    },
-    "httpRoute": {
-      "type": "object",
-      "description": "Kubernetes Gateway API HTTPRoute resource configuration",
-      "additionalProperties": false,
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        },
-        "annotations": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "host": {
-          "type": "string"
-        },
-        "parentRef": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "namespace": {
-              "type": "string"
-            },
-            "sectionName": {
-              "type": "string"
-            }
-          }
         }
       },
       "required": ["enabled"]

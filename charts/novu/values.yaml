@@ -28,17 +28,6 @@ gateway:
         kind: Secret
         group: ""
 
-httpRoute:
-  enabled: false
-  annotations: { }
-  # host is used to build per-component subdomains: api.<host>, web.<host>, ws.<host>
-  host: chart-example.local
-  parentRef:
-    name: ""
-    namespace: ""
-    sectionName: ""
-
-
 service:
   type: ClusterIP
 
@@ -54,6 +43,14 @@ web:
     embedPath: http://localhost:4701/embed.umd.min.js
     url: http://localhost:4500
   extraEnvFrom: []
+  httpRoute:
+    enabled: false
+    annotations: { }
+    hostname: ""
+    parentRef:
+      name: ""
+      namespace: ""
+      sectionName: ""
 
 api:
   replicaCount: 1
@@ -65,6 +62,14 @@ api:
   resources: { }
   contextPath: ""
   extraEnvFrom: []
+  httpRoute:
+    enabled: false
+    annotations: { }
+    hostname: ""
+    parentRef:
+      name: ""
+      namespace: ""
+      sectionName: ""
 
 worker:
   replicaCount: 1
@@ -87,6 +92,14 @@ ws:
   contextPath: ""
   resources: { }
   extraEnvFrom: []
+  httpRoute:
+    enabled: false
+    annotations: { }
+    hostname: ""
+    parentRef:
+      name: ""
+      namespace: ""
+      sectionName: ""
 
 global:
   imagePullSecrets: [ ]

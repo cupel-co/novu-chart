@@ -1,0 +1,30 @@
+{{- if .Values.web.httpRoute.enabled -}}
+{{- $parentName := default (include "novu.fullname" .) .Values.web.httpRoute.parentRef.name -}}
+{{- $parentNamespace := default .Release.Namespace .Values.web.httpRoute.parentRef.namespace -}}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ include "novu.web.fullname" . }}
+  labels:
+    {{- include "novu.labels" . | nindent 4 }}
+    app.kubernetes.io/component: web
+  {{- with .Values.web.httpRoute.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  parentRefs:
+    - name: {{ $parentName }}
+      namespace: {{ $parentNamespace }}
+      {{- if .Values.web.httpRoute.parentRef.sectionName }}
+      sectionName: {{ .Values.web.httpRoute.parentRef.sectionName | quote }}
+      {{- end }}
+  {{- if .Values.web.httpRoute.hostname }}
+  hostnames:
+    - {{ .Values.web.httpRoute.hostname | quote }}
+  {{- end }}
+  rules:
+    - backendRefs:
+        - name: {{ include "novu.web.fullname" . }}
+          port: {{ .Values.web.port }}
+{{- end }}

@@ -62,6 +62,50 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
+Create the name of the service account to use for the api component.
+*/}}
+{{- define "novu.api.serviceAccountName" -}}
+{{- if .Values.api.serviceAccount.create }}
+{{- default (include "novu.api.fullname" .) .Values.api.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.api.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use for the web component.
+*/}}
+{{- define "novu.web.serviceAccountName" -}}
+{{- if .Values.web.serviceAccount.create }}
+{{- default (include "novu.web.fullname" .) .Values.web.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.web.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use for the worker component.
+*/}}
+{{- define "novu.worker.serviceAccountName" -}}
+{{- if .Values.worker.serviceAccount.create }}
+{{- default (include "novu.worker.fullname" .) .Values.worker.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.worker.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use for the ws component.
+*/}}
+{{- define "novu.ws.serviceAccountName" -}}
+{{- if .Values.ws.serviceAccount.create }}
+{{- default (include "novu.ws.fullname" .) .Values.ws.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.ws.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{/*
 Generate the full name of the api component.
 */}}
 {{- define "novu.api.fullname" -}}

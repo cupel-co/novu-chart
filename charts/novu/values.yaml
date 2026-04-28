@@ -33,6 +33,10 @@ service:
 
 web:
   replicaCount: 1
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: { }
   image:
     repository: ghcr.io/novuhq/novu/web
     pullPolicy: IfNotPresent
@@ -54,6 +58,10 @@ web:
 
 api:
   replicaCount: 1
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: { }
   image:
     repository: ghcr.io/novuhq/novu/api
     pullPolicy: IfNotPresent
@@ -73,6 +81,10 @@ api:
 
 worker:
   replicaCount: 1
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: { }
   image:
     repository: ghcr.io/novuhq/novu/worker
     pullPolicy: IfNotPresent
@@ -84,6 +96,10 @@ worker:
 
 ws:
   replicaCount: 1
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: { }
   image:
     repository: ghcr.io/novuhq/novu/ws
     pullPolicy: IfNotPresent

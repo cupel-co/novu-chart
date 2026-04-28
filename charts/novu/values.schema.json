@@ -53,6 +53,29 @@
           "type": "integer",
           "minimum": 1
         },
+        "serviceAccount": {
+          "type": "object",
+          "description": "Service account configuration for the web component",
+          "additionalProperties": false,
+          "properties": {
+            "create": {
+              "type": "boolean",
+              "description": "Specifies whether a service account should be created"
+            },
+            "name": {
+              "type": "string",
+              "description": "The name of the service account to use. If not set and create is true, a name is generated."
+            },
+            "annotations": {
+              "type": "object",
+              "description": "Annotations to add to the service account",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "required": ["create"]
+        },
         "image": {
           "type": "object",
           "properties": {
@@ -140,6 +163,29 @@
           "type": "integer",
           "minimum": 1
         },
+        "serviceAccount": {
+          "type": "object",
+          "description": "Service account configuration for the api component",
+          "additionalProperties": false,
+          "properties": {
+            "create": {
+              "type": "boolean",
+              "description": "Specifies whether a service account should be created"
+            },
+            "name": {
+              "type": "string",
+              "description": "The name of the service account to use. If not set and create is true, a name is generated."
+            },
+            "annotations": {
+              "type": "object",
+              "description": "Annotations to add to the service account",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "required": ["create"]
+        },
         "image": {
           "type": "object",
           "properties": {
@@ -218,6 +264,29 @@
           "type": "integer",
           "minimum": 1
         },
+        "serviceAccount": {
+          "type": "object",
+          "description": "Service account configuration for the worker component",
+          "additionalProperties": false,
+          "properties": {
+            "create": {
+              "type": "boolean",
+              "description": "Specifies whether a service account should be created"
+            },
+            "name": {
+              "type": "string",
+              "description": "The name of the service account to use. If not set and create is true, a name is generated."
+            },
+            "annotations": {
+              "type": "object",
+              "description": "Annotations to add to the service account",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "required": ["create"]
+        },
         "image": {
           "type": "object",
           "properties": {
@@ -259,6 +328,29 @@
         "replicaCount": {
           "type": "integer",
           "minimum": 1
+        },
+        "serviceAccount": {
+          "type": "object",
+          "description": "Service account configuration for the ws component",
+          "additionalProperties": false,
+          "properties": {
+            "create": {
+              "type": "boolean",
+              "description": "Specifies whether a service account should be created"
+            },
+            "name": {
+              "type": "string",
+              "description": "The name of the service account to use. If not set and create is true, a name is generated."
+            },
+            "annotations": {
+              "type": "object",
+              "description": "Annotations to add to the service account",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "required": ["create"]
         },
         "image": {
           "type": "object",

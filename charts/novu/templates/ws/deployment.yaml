@@ -17,6 +17,7 @@ spec:
         app: {{ include "novu.name" . }}
         component: ws
     spec:
+      serviceAccountName: {{ include "novu.ws.serviceAccountName" . }}
       {{- with .Values.global.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

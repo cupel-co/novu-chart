@@ -17,6 +17,7 @@ spec:
         app: {{ include "novu.name" . }}
         component: web
     spec:
+      serviceAccountName: {{ include "novu.web.serviceAccountName" . }}
       containers:
         - name: web
           image: "{{ .Values.web.image.repository }}:{{ .Values.web.image.tag | default .Chart.AppVersion }}"

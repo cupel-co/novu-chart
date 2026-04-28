@@ -8,7 +8,7 @@ metadata:
 data:
   NODE_ENV: {{ .Values.global.env.nodeEnv | quote }}
   MONGO_MAX_POOL_SIZE: {{ .Values.global.env.mongodb.maxPoolSize | quote }}
-  {{- if .Values.global.env.redis.enabled }}
+  {{- if .Values.global.env.redis.host }}
   REDIS_HOST: {{ .Values.global.env.redis.host | quote }}
   REDIS_PORT: {{ .Values.global.env.redis.port | quote }}
   REDIS_CACHE_SERVICE_HOST: {{ .Values.global.env.redis.host | quote }}

@@ -40,7 +40,7 @@ spec:
               value: "{{ .Values.global.env.disableUserRegistration }}"
             - name: FRONT_BASE_URL
               value: "{{ .Values.global.env.frontBaseUrl }}"
-            {{- if .Values.global.env.redis.enabled }}
+            {{- if .Values.global.env.redis.host }}
             {{- if .Values.global.env.redis.existingSecret }}
             - name: REDIS_PASSWORD
               valueFrom:

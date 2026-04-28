@@ -40,7 +40,7 @@ spec:
               value: "{{ .Values.ws.port }}"
             - name: WS_CONTEXT_PATH
               value: "{{ .Values.ws.contextPath }}"
-            {{- if .Values.global.env.redis.enabled }}
+            {{- if .Values.global.env.redis.host }}
             {{- if .Values.global.env.redis.existingSecret }}
             - name: REDIS_PASSWORD
               valueFrom:

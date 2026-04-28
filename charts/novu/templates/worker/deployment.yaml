@@ -38,7 +38,7 @@ spec:
               value: "{{ .Values.worker.broadcastQueueChunkSize }}"
             - name: MULTICAST_QUEUE_CHUNK_SIZE
               value: "{{ .Values.worker.multicastQueueChunkSize }}"
-            {{- if .Values.global.env.redis.enabled }}
+            {{- if .Values.global.env.redis.host }}
             {{- if .Values.global.env.redis.existingSecret }}
             - name: REDIS_PASSWORD
               valueFrom:

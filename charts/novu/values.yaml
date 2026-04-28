@@ -110,7 +110,6 @@ global:
       minPoolSize: 75
       url: ""        # connection string used when mongodb.enabled is false
     redis:
-      enabled: false
       host: ""
       port: 6379
       password: ""

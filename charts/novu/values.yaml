@@ -108,6 +108,7 @@ global:
     mongodb:
       maxPoolSize: 200
       minPoolSize: 75
+      url: ""        # connection string used when mongodb.enabled is false
     secret:
       novuSecretKey: your-secret
       jwtSecret: your-secret
@@ -135,7 +136,6 @@ redis:
 
 mongodb:
   enabled: true
-  url: ""        # connection string used when enabled: false
 
 externalRedis:
   enabled: false

@@ -354,6 +354,10 @@
                 },
                 "minPoolSize": {
                   "type": "integer"
+                },
+                "url": {
+                  "type": "string",
+                  "description": "MongoDB connection string used when mongodb.enabled is false"
                 }
               }
             },
@@ -453,10 +457,6 @@
       "properties": {
         "enabled": {
           "type": "boolean"
-        },
-        "url": {
-          "type": "string",
-          "description": "MongoDB connection string used when enabled is false"
         }
       },
       "required": ["enabled"]

@@ -147,5 +147,7 @@ redis:
 
 mongodb:
   enabled: true
+  serviceBindings:
+    enabled: true
 
 

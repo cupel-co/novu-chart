@@ -59,7 +59,7 @@ spec:
                   name: "{{ include "redis.fullname" . }}"
                   key: redis-password
             {{- end }}
-            {{- if not .Values.externalMongo.enabled }}
+            {{- if .Values.mongodb.enabled }}
             - name: MONGO_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:

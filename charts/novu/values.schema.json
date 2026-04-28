@@ -453,20 +453,10 @@
       "properties": {
         "enabled": {
           "type": "boolean"
-        }
-      },
-      "required": ["enabled"]
-    },
-    "externalMongo": {
-      "type": "object",
-      "description": "External MongoDB configuration",
-      "additionalProperties": false,
-      "properties": {
-        "enabled": {
-          "type": "boolean"
         },
         "url": {
-          "type": "string"
+          "type": "string",
+          "description": "MongoDB connection string used when enabled is false"
         }
       },
       "required": ["enabled"]

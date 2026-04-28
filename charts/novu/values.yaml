@@ -135,10 +135,7 @@ redis:
 
 mongodb:
   enabled: true
-
-externalMongo:
-  enabled: false
-  url: ""
+  url: ""        # connection string used when enabled: false
 
 externalRedis:
   enabled: false

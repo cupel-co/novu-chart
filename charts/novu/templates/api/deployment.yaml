@@ -61,21 +61,7 @@ spec:
                   name: "{{ include "redis.fullname" . }}"
                   key: redis-password
             {{- end }}
-            {{- if .Values.mongodb.enabled }}
-            - name: MONGO_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "mongodb.fullname" . }}
-                  key: mongodb-root-password
-            - name: MONGO_URL
-              value: "mongodb://root:$(MONGO_ROOT_PASSWORD)@{{ include "mongodb.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ dig "service" "ports" "mongodb" 27017 .Values.mongodb }}/novu"
-            {{- else }}
-            - name: MONGO_URL
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "novu.fullname" . }}-secret
-                  key: MONGO_URL
-            {{- end }}
+
           resources:
             {{- toYaml .Values.api.resources | nindent 12 }}
           livenessProbe:

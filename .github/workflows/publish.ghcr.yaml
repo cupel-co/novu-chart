@@ -21,5 +21,6 @@ jobs:
 
       - name: Package and Push
         run: |
+          helm dependency update charts/novu
           helm package charts/novu
           helm push novu-*.tgz oci://ghcr.io/cupel-co/charts
